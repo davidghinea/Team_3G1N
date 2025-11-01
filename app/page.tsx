@@ -1,3 +1,5 @@
+import DashBoard from "@/components/pages/Dashboard";
+
 export default function Home() {
-  return <h1>Hello World!</h1>;
+  return <DashBoard />;
 }
