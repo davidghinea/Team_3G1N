@@ -1,14 +1,12 @@
-import { IdeasSidebarShadcn } from "@/components/personal-components/ideas-sidebar-shadcn";
+"use client"
 
-export default function DashBoard() {
+import Feed from "@/components/personal-components/feed"
+
+export default function Home() {
   return (
-    <>
-      <IdeasSidebarShadcn>
-        <h1>Hello World!</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic, veniam.
-        </p>
-      </IdeasSidebarShadcn>
-    </>
-  );
+    <div className="flex h-screen w-screen justify-center items-center bg-background">
+      {/* Main feed area - flexible for sidebar */}
+        <Feed />
+    </div>
+  )
 }
