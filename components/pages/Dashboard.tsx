@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Feed from "@/components/personal-components/feed"
+import Feed from "@/components/personal-components/feed";
 
 export default function Home() {
   return (
-    <div className="flex h-screen w-screen justify-center items-center bg-background">
+    <div className="flex w-screen justify-center items-center bg-background">
       {/* Main feed area - flexible for sidebar */}
-        <Feed />
+      <Feed />
     </div>
-  )
+  );
 }

@@ -1,28 +1,34 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import Image from "next/image"
-import { Heart, MessageCircle } from "lucide-react"
-import { useState } from "react"
+"use client";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import Image from "next/image";
+import { Heart, MessageCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface PostCardProps {
   post: {
-    id: string
-    businessName: string
-    businessLogo: string
-    title: string
-    description: string
-    ideaBy: string
-    ideaByRole: string
-    ideaByPhoto: string
-    congratulations: number
-    hasUserCongratulated: boolean
-  }
-  onCongratulate: () => void
+    id: string;
+    businessName: string;
+    businessLogo: string;
+    title: string;
+    description: string;
+    ideaBy: string;
+    ideaByRole: string;
+    ideaByPhoto: string;
+    congratulations: number;
+    hasUserCongratulated: boolean;
+  };
+  onCongratulate: () => void;
 }
 
 export default function PostCard({ post, onCongratulate }: PostCardProps) {
-  const [commentCount] = useState(() => Math.floor(Math.random() * 51))
+  // Start with a stable initial value on first render to match server output,
+  // then set a random count on the client after mount to avoid hydration errors.
+  const [commentCount, setCommentCount] = useState<number>(0);
+
+  useEffect(() => {
+    setCommentCount(Math.floor(Math.random() * 51));
+  }, []);
 
   return (
     <Card className="border">
@@ -62,24 +68,35 @@ export default function PostCard({ post, onCongratulate }: PostCardProps) {
         <h2 className="text-sm font-semibold mb-2">{post.title}</h2>
 
         {/* Post description */}
-        <p className="text-xs text-muted-foreground leading-relaxed mb-3">{post.description}</p>
+        <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+          {post.description}
+        </p>
 
         <div className="border-t pt-3">
           <div className="flex items-center justify-between gap-6 py-2">
             <div className="flex items-center gap-2">
-              <Button onClick={onCongratulate} variant="default" size="sm" className="text-xs h-8 px-3">
+              <Button
+                onClick={onCongratulate}
+                variant="default"
+                size="sm"
+                className="text-xs h-8 px-3"
+              >
                 <Heart className="w-4 h-4 mr-1" />
                 Congratulate
               </Button>
-              <span className="text-xs text-muted-foreground">{post.congratulations}</span>
+              <span className="text-xs text-muted-foreground">
+                {post.congratulations}
+              </span>
             </div>
             <div className="flex items-center gap-1">
               <MessageCircle className="w-4 h-4 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">{commentCount}</span>
+              <span className="text-xs text-muted-foreground">
+                {commentCount}
+              </span>
             </div>
           </div>
         </div>
       </div>
     </Card>
-  )
+  );
 }
